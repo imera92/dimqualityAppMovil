@@ -24,9 +24,7 @@ export class Settings {
         this.settings = value;
         return this._mergeDefaults(this._defaults);
       } else {
-        return this.setAll(this._defaults).then((val) => {
-          this.settings = val;
-        })
+        return null;
       }
     });
   }

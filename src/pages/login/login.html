@@ -21,13 +21,13 @@
       -->
       <ion-item>
         <ion-label floating>{{ 'USERNAME' | translate }}</ion-label>
-        <ion-input type="text" [(ngModel)]="account.user" name="username"></ion-input>
+        <ion-input type="text" [(ngModel)]="account.user" name="username" required></ion-input>
       </ion-item>
       
 
       <ion-item>
         <ion-label fixed>{{ 'PASSWORD' | translate }}</ion-label>
-        <ion-input type="password" [(ngModel)]="account.password" name="password"></ion-input>
+        <ion-input type="password" [(ngModel)]="account.password" name="password" required></ion-input>
       </ion-item>
 
       <div padding>

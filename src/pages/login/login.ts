@@ -7,6 +7,8 @@ import { User } from '../../providers/user';
 
 import { TranslateService } from '@ngx-translate/core';
 
+import { LocalUser } from '../../providers/localUser'
+
 
 @Component({
   selector: 'page-login',
@@ -20,6 +22,8 @@ export class LoginPage {
     user: 'user',
     password: 'asdf'
   };
+  _user: any;
+  tabBarElement: any;
 
   // Our translated text strings
   private loginErrorString: string;
@@ -27,16 +31,20 @@ export class LoginPage {
   constructor(public navCtrl: NavController,
     public user: User,
     public toastCtrl: ToastController,
+    public localUser: LocalUser,
     public translateService: TranslateService) {
 
     this.translateService.get('LOGIN_ERROR').subscribe((value) => {
       this.loginErrorString = value;
     })
+
+    
+
   }
 
   // Attempt to login in through our User service
   doLogin() {
-    this.user.login(this.account).subscribe((resp) => {
+    this.user.login(this.account).subscribe((resp) => {      
       this.navCtrl.push(MainPage);
     }, (err) => {
       //this.navCtrl.push(MainPage);
@@ -49,4 +57,18 @@ export class LoginPage {
       toast.present();
     });
   }
+
+  ionViewWillEnter(){ 
+    console.log("Will Enter");
+    this.localUser.load().then((user)=>{
+      if(user){
+        this.navCtrl.push(MainPage);
+      }
+    });
+  }
+
+  onPageWillLeave(){
+      
+  }
+
 }

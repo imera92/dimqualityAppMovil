@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Http, RequestOptions, URLSearchParams } from '@angular/http';
+import { Http, RequestOptions, URLSearchParams, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
+
+
+import { LocalUser } from './localUser'
 
 /**
  * Api is a generic REST Api handler. Set your API url first.
@@ -8,8 +11,9 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class Api {
   url: string = 'http://localhost/DimqualityWebShop/index.php/api';
+  apiKey: string =null;
 
-  constructor(public http: Http) {
+  constructor(public http: Http, public localUser: LocalUser) {
   }
 
   get(endpoint: string, params?: any, options?: RequestOptions) {
@@ -28,22 +32,49 @@ export class Api {
       options.search = !options.search && p || options.search;
     }
 
+    options.headers= this.getHeaders();
+    console.log(options);
     return this.http.get(this.url + '/' + endpoint, options);
   }
 
   post(endpoint: string, body: any, options?: RequestOptions) {
+    if (!options) {
+      options = new RequestOptions();
+    }
+    options.headers= this.getHeaders();
     return this.http.post(this.url + '/' + endpoint, body, options);
   }
 
   put(endpoint: string, body: any, options?: RequestOptions) {
+    if (!options) {
+      options = new RequestOptions();
+    }
+    options.headers= this.getHeaders();
     return this.http.put(this.url + '/' + endpoint, body, options);
   }
 
   delete(endpoint: string, options?: RequestOptions) {
+    if (!options) {
+      options = new RequestOptions();
+    }
+    options.headers= this.getHeaders();
     return this.http.delete(this.url + '/' + endpoint, options);
   }
 
   patch(endpoint: string, body: any, options?: RequestOptions) {
+    if (!options) {
+      options = new RequestOptions();
+    }
+    options.headers= this.getHeaders();
     return this.http.put(this.url + '/' + endpoint, body, options);
+  }
+
+  getHeaders(){
+    let h = new Headers();
+    h.set('Content-type', 'application/json');
+    if(this.apiKey){
+      h.append("x-api-key", this.apiKey);
+    }    
+    return h;
   }
 }

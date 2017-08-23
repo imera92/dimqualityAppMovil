@@ -22,6 +22,7 @@ export class ItemCreatePage {
     this.form = formBuilder.group({
       profilePic: [''],
       date: ['', Validators.required],
+      hora: ['', Validators.required],
       about: ['']
     });
 

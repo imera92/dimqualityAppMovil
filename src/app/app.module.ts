@@ -22,9 +22,11 @@ import { TutorialPage } from '../pages/tutorial/tutorial';
 import { WelcomePage } from '../pages/welcome/welcome';
 
 import { Api } from '../providers/api';
-import { Items } from '../mocks/providers/items';
+import { Items } from '../providers/items';
 import { Settings } from '../providers/settings';
 import { User } from '../providers/user';
+import { LocalUser } from '../providers/localUser';
+import { Citas } from '../providers/citas';
 
 import { Camera } from '@ionic-native/camera';
 import { GoogleMaps } from '@ionic-native/google-maps';
@@ -108,6 +110,8 @@ export function provideSettings(storage: Storage) {
     Api,
     Items,
     User,
+    LocalUser,
+    Citas,
     Camera,
     GoogleMaps,
     SplashScreen,

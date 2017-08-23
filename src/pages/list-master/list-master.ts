@@ -3,26 +3,33 @@ import { NavController, ModalController } from 'ionic-angular';
 
 import { ItemCreatePage } from '../item-create/item-create';
 import { ItemDetailPage } from '../item-detail/item-detail';
+import { SettingsPage } from '../settings/settings';
 
 import { Items } from '../../providers/providers';
 
 import { Item } from '../../models/item';
+
+import { Citas } from '../../providers/providers';
 
 @Component({
   selector: 'page-list-master',
   templateUrl: 'list-master.html'
 })
 export class ListMasterPage {
-  currentItems: Item[];
+  currentItems: any;
 
-  constructor(public navCtrl: NavController, public items: Items, public modalCtrl: ModalController) {
-    this.currentItems = this.items.query();
+  constructor(public navCtrl: NavController,
+    public items: Items,
+    public modalCtrl: ModalController,
+    public citas: Citas) {
+    //this.currentItems = this.items.query();
   }
 
   /**
    * The view loaded, let's query our items for the list
    */
   ionViewDidLoad() {
+    console.log(this.citas.query());
   }
 
   /**
@@ -53,5 +60,11 @@ export class ListMasterPage {
     this.navCtrl.push(ItemDetailPage, {
       item: item
     });
+  }
+
+  settings(){
+    //let addModal = this.modalCtrl.create(SettingsPage);
+    //addModal.present();
+    //this.navCtrl.push(SettingsPage);
   }
 }
